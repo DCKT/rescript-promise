@@ -1,6 +1,6 @@
 {
   "name": "@dck/rescript-promise",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Light and type-safe binding to JS promises",
   "keywords": [
     "rescript",
