@@ -7,15 +7,7 @@
     "promise",
     "async"
   ],
-  "homepage": "https://github.com/aantron/promise",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aantron/promise.git"
-  },
-  "bugs": {
-    "url": "https://github.com/aantron/promise/issues"
-  },
   "author": {
     "name": "Anton Bachin",
     "email": "antonbachin@yahoo.com",
