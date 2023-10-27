@@ -1,3 +1,5 @@
+⚠️ This is a fork of the [excellent work](https://github.com/aantron/promise) of [@aantron](https://github.com/aantron) updated for the latest version of ReScript
+
 # Promise &nbsp;&nbsp;&nbsp; [![NPM link][npm-img]][npm] [![Travis status][travis-img]][travis] [![Coverage][coveralls-img]][coveralls]
 
 [npm]: https://www.npmjs.com/package/reason-promise
@@ -70,6 +72,7 @@ In addition:
 <br/>
 
 <a id="Installing"></a>
+
 ### Installing
 
 ```
@@ -80,15 +83,14 @@ Then, add `reason-promise` to your `bsconfig.json`:
 
 ```json
 {
-  "bs-dependencies": [
-    "reason-promise"
-  ]
+  "bs-dependencies": ["reason-promise"]
 }
 ```
 
 <br/>
 
 <a id="GettingStarted"></a>
+
 ### Getting started
 
 To quickly get a project for pasting the code examples, clone the
@@ -111,6 +113,7 @@ of what each function does and what it expects from its callback.
 <br/>
 
 <a id="Creating"></a>
+
 ### Creating new promises
 
 The most basic function for creating a new promise is
@@ -151,6 +154,7 @@ Js.log(p)     /* Promise { <pending> } */
 <br/>
 
 <a id="Values"></a>
+
 ### Getting values from promises
 
 To do something once a promise is resolved, use [`Promise.get`][get]:
@@ -166,6 +170,7 @@ resolve("Hello")    /* Prints "Hello". */
 <br/>
 
 <a id="Transforming"></a>
+
 ### Transforming promises
 
 Use [`Promise.map`][map] to transform the value inside a promise:
@@ -180,7 +185,7 @@ p
 resolve("Hello")    /* Hello world */
 ```
 
-To be precise, `Promise.map` creates a *new* promise with the transformed value.
+To be precise, `Promise.map` creates a _new_ promise with the transformed value.
 
 If the function you are using to transform the value also returns a promise,
 use [`Promise.flatMap`][flatMap] instead of `Promise.map`. `Promise.flatMap`
@@ -189,6 +194,7 @@ will flatten the nested promise.
 <br/>
 
 <a id="Tracing"></a>
+
 ### Tracing
 
 If you have a chain of promise operations, and you'd like to inspect the value
@@ -215,9 +221,10 @@ Hello world
 <br/>
 
 <a id="Combining"></a>
+
 ### Concurrent combinations
 
-[`Promise.race`][race] waits for *one* of the promises passed to it to resolve:
+[`Promise.race`][race] waits for _one_ of the promises passed to it to resolve:
 
 ```rescript
 @bs.val external setTimeout: (unit => unit, int) => unit = "setTimeout"
@@ -234,7 +241,7 @@ Promise.race([one_second, five_seconds])
 /* Prints "Hello" after one second. */
 ```
 
-[`Promise.all`][all] instead waits for *all* of the promises passed to it,
+[`Promise.all`][all] instead waits for _all_ of the promises passed to it,
 concurrently:
 
 ```rescript
@@ -264,6 +271,7 @@ For convenience, there are several variants of `Promise.all`:
 <br/>
 
 <a id="Errors"></a>
+
 ### Handling errors with `Result`
 
 Promises that can fail are represented using the standard library's
@@ -348,6 +356,7 @@ If you'd like instead to fully wait for all the promises to resolve with either
 <br/>
 
 <a id="Rejection"></a>
+
 ### Advanced: Rejection
 
 As you can see from [Handling errors](#Errors), `Promise` doesn't use rejection
@@ -407,11 +416,12 @@ both no-op identity functions that only change the type.
 <br>
 
 <a id="Bindings"></a>
+
 ### Advanced: Bindings
 
 Refer to the [example node-fetch binding repo][example-binding].
 
-When you want to bind a JS function that *returns* a promise, you can use
+When you want to bind a JS function that _returns_ a promise, you can use
 `Promise` directly in its return value:
 
 ```rescript
@@ -464,7 +474,7 @@ wrapper that converts rejections into `Result`s. If the potential rejections
 are messy, this is a good place to insert additional logic for converting them
 to nice ReScript values :)
 
-When *passing* a promise to JS, it is generally safe to use `Promise` rather
+When _passing_ a promise to JS, it is generally safe to use `Promise` rather
 than `Promise.Js`:
 
 ```rescript
@@ -484,6 +494,7 @@ log(Promise.resolved("Hello"))        /* Hello */
 <br/>
 
 <a id="JSPromiseFlattening"></a>
+
 ### Discussion: Why JS promises are unsafe
 
 The JS function [`Promise.resolve`][Promise.resolve] has a special case, which
@@ -513,7 +524,7 @@ Js.Promise.resolve: 'a => Js.Promise.t('a)
 
 and, indeed, that's the type it [has][Js.Promise.resolve] in BuckleScript.
 
-Following the pattern, we would *expect*:
+Following the pattern, we would _expect_:
 
 ```rescript
 let nestedPromise = Js.Promise.resolve(1)
@@ -553,7 +564,7 @@ Js.Promise.resolve(nestedPromise)
 ->Js.Promise.then_(p => /* ... */)
 ```
 
-you would *expect* `p` in the callback to be a promise containing `1`, and the
+you would _expect_ `p` in the callback to be a promise containing `1`, and the
 type of `p` is indeed `Js.Promise.t(int)`. Instead, however, `p` is just the
 bare value `1`. That means the callback will cause a runtime error as soon as
 it tries to use promise functions on the `1`. Worse, you might store `p` in a
@@ -563,17 +574,18 @@ point of using ReScript.
 
 The same special casing occurs throughout the JS `Promise` API &mdash; for
 example, when you return a promise from the callback of `then_`. This means that
-*most* of the JS `Promise` functions can't be assigned a correct type and
+_most_ of the JS `Promise` functions can't be assigned a correct type and
 directly, safely be used from ReScript.
 
 <br/>
 
 <a id="TypeSafety"></a>
+
 ### Discussion: How `reason-promise` makes promises type-safe
 
 The [previous section](#JSPromiseFlattening) shows that JS promise functions are
-broken. An important observation is that it is only the *functions* that are
-broken &mdash; the promise *data structure* is not. That means that to make JS
+broken. An important observation is that it is only the _functions_ that are
+broken &mdash; the promise _data structure_ is not. That means that to make JS
 promises type-safe, we can keep the existing JS data structure, and just provide
 safe replacement functions to use with it in ReScript. This is good news
 for interop :)
@@ -583,9 +595,9 @@ has to be undone. So, when you call `reason-promise`'s
 [`Promise.resolved(value)`][resolved], it checks whether `value` is a promise
 or not, and...
 
-- If `value` *is not* a promise, `reason-promise` just passes it to JS's
+- If `value` _is not_ a promise, `reason-promise` just passes it to JS's
   [`Promise.resolve`][Promise.resolve], because JS will do the right thing.
-- If `value` *is* a promise, it's not safe to simply pass it to JS, because it
+- If `value` _is_ a promise, it's not safe to simply pass it to JS, because it
   will trigger the special-casing. So, `reason-promise` boxes the nested
   promise:
 
@@ -625,7 +637,6 @@ values, while still keeping most values unboxed.
 [Result]: https://bucklescript.github.io/bucklescript/api/Belt.Result.html
 [Option]: https://bucklescript.github.io/bucklescript/api/Belt.Option.html
 [tests]: https://github.com/aantron/promise/tree/master/test
-
 [pending]: https://github.com/aantron/promise/blob/51001f911ff31ecf51a633fba9f782769a2726c9/src/js/promise.rei#L20-L22
 [resolved]: https://github.com/aantron/promise/blob/51001f911ff31ecf51a633fba9f782769a2726c9/src/js/promise.rei#L24-L26
 [exec]: https://github.com/aantron/promise/blob/51001f911ff31ecf51a633fba9f782769a2726c9/src/js/promise.rei#L28-L30

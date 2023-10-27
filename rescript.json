@@ -1,0 +1,6 @@
+{
+  "name": "rescript-promise",
+  "uncurried": false,
+  "namespace": false,
+  "sources": ["src/js"]
+}

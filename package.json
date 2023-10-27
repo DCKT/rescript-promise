@@ -1,10 +1,9 @@
 {
-  "name": "reason-promise",
-  "version": "1.1.5",
+  "name": "@dck/rescript-promise",
+  "version": "0.0.0",
   "description": "Light and type-safe binding to JS promises",
   "keywords": [
-    "BuckleScript",
-    "reason",
+    "rescript",
     "promise",
     "async"
   ],
@@ -22,22 +21,20 @@
     "email": "antonbachin@yahoo.com",
     "url": "https://github.com/aantron"
   },
+  "peerDependencies": {
+    "rescript": ">=11.0.0-rc.4"
+  },
   "devDependencies": {
-    "bs-platform": ">= 7.3.1",
-    "webpack": "^4.0.0",
-    "webpack-cli": "^3.0.0"
+    "rescript": ">=11.0.0-rc.4"
   },
   "scripts": {
-    "build": "bsb -make-world",
-    "watch": "bsb -w -make-world",
-    "clean": "bsb -clean-world && rm -rf lib promise-* *.tar.gz *.tgz _release",
-    "very-clean": "rm -rf node_modules _esy _opam package-lock.json",
-    "test": "bsb -make-world && node lib/js/test/test_main.js",
-    "benchmark": "bsb -make-world && node lib/js/test/js/benchmark.js"
+    "build": "rescript build",
+    "watch": "rescript build -w",
+    "clean": "rescript clean"
   },
   "files": [
-    "src/js/promise.rei",
-    "src/js/promise.re",
-    "bsconfig.json"
+    "src/js/promise.resi",
+    "src/js/promise.res",
+    "rescript.json"
   ]
 }
