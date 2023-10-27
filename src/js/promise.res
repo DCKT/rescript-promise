@@ -1,7 +1,3 @@
-/* This file is part of reason-promise, released under the MIT license. See
-   LICENSE.md for details, or visit
-   https://github.com/aantron/promise/blob/master/LICENSE.md. */
-
 type rejectable<+'a, +'e>
 type never
 
@@ -123,7 +119,7 @@ module Js_ = {
 
   let allArray = promises => map(jsAll(promises), promises => Belt.Array.map(promises, unbox))
 
-  let all = promises => map(allArray(Belt.List.toArray(promises)), Belt.List.fromArray)
+  let all = promises => map(allArray(Belt.List.toArray(promises)), a => a->Belt.List.fromArray)
 
   let all2 = (p1, p2) => jsAll((p1, p2))
 
@@ -265,7 +261,8 @@ let allOkArray = promises => {
          huge lists of stale callbacks. This is also true of Promise.race, so we
          rely on the quality of the runtime's Promise.race implementation to
          proactively remove these callbacks. */
-      race(list{promise, callbackRemover}) |> (
+
+      (
         wrapped =>
           get(wrapped, result =>
             switch result {
@@ -273,26 +270,29 @@ let allOkArray = promises => {
               resultValues->Belt.Array.setExn(index, Some(v))
               incr(resultCount)
               if resultCount.contents >= promiseCount {
-                resultValues->Belt.Array.map(v =>
-                  switch v {
-                  | Some(v) => v
-                  | None => assert false
-                  }
-                ) |> (values => resolve(Ok(values)))
+                (values => resolve(Ok(values)))(
+                  resultValues->Belt.Array.map(
+                    v =>
+                      switch v {
+                      | Some(v) => v
+                      | None => assert(false)
+                      },
+                  ),
+                )
               }
             | Error(e) =>
               resolve(Error(e))
               removeCallbacks(Error(e))
             }
           )
-      )
+      )(race(list{promise, callbackRemover}))
     )
 
     resultPromise
   }
 }
 
-let allOk = promises => mapOk(allOkArray(Belt.List.toArray(promises)), Belt.List.fromArray)
+let allOk = promises => mapOk(allOkArray(Belt.List.toArray(promises)), a => a->Belt.List.fromArray)
 
 let unsafeAllOkArray = Obj.magic(allOkArray)
 
@@ -340,8 +340,6 @@ let tapSome = (promise, callback) => {
   promise
 }
 
-module PipeFirst = {
-
-}
+module PipeFirst = {}
 
 module Js = Js_

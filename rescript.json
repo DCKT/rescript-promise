@@ -1,6 +1,6 @@
 {
   "name": "@dck/rescript-promise",
-  "uncurried": false,
+  "uncurried": true,
   "namespace": false,
   "sources": ["src/js"]
 }
