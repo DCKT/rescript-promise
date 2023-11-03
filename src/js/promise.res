@@ -68,9 +68,6 @@ function catch_(promise, callback) {
 };
 `)
 
-/* Compatibility with BukleScript < 6. */
-type result<'a, 'e> = Belt.Result.t<'a, 'e> = Ok('a) | Error('e)
-
 module Js_ = {
   type t<'a, 'e> = rejectable<'a, 'e>
 
