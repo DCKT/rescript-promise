@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/DCKT/rescript-promise/compare/v1.0.2...v1.0.3) (2023-11-03)
+
+
+### Bug Fixes
+
+* upgrade to latest rc ([f10ca87](https://github.com/DCKT/rescript-promise/commit/f10ca8756eaf668677353f21d9106fc633695de7))
+
 ## [1.0.2](https://github.com/DCKT/rescript-promise/compare/v1.0.1...v1.0.2) (2023-10-27)
 
 
