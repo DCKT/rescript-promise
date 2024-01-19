@@ -14,10 +14,10 @@
     "url": "https://github.com/aantron"
   },
   "peerDependencies": {
-    "rescript": ">=11.0.0-rc.5"
+    "rescript": ">=11.0.0"
   },
   "devDependencies": {
-    "rescript": ">=11.0.0-rc.5"
+    "rescript": ">=11.0.0"
   },
   "scripts": {
     "build": "rescript build",

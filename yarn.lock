@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-rescript@>=11.0.0-rc.5:
-  version "11.0.0-rc.5"
-  resolved "https://registry.yarnpkg.com/rescript/-/rescript-11.0.0-rc.5.tgz#7432ad57f6baa2d6edaaeb9c795e4c9ad85498dd"
-  integrity sha512-7tiOmhOJ0myaIM9/AEYxiKXha2mn+9AGdkiy5PNOaBjuGxF2Le7qnr/cyOiTTpPq4fYXxZhwpaBF1AKNl5LUPg==
+rescript@>=11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/rescript/-/rescript-11.0.0.tgz#9a0b6fc998c360543c459aba49b77a572a0306cd"
+  integrity sha512-uIUwDZZmDUb7ymGkBiiGioxMg8hXh1mze/2k/qhYQcZGgi7PrLHQIW9AksM7gb9WnpjCAvFsA8U2VgC0nA468w==
