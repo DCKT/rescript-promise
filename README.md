@@ -2,8 +2,8 @@
 
 # Promise &nbsp;&nbsp;&nbsp; [![NPM link][npm-img]][npm] [![Travis status][travis-img]][travis] [![Coverage][coveralls-img]][coveralls]
 
-[npm]: https://www.npmjs.com/package/reason-promise
-[npm-img]: https://img.shields.io/npm/v/reason-promise
+[npm]: https://www.npmjs.com/package/@dck/rescript-promise
+[npm-img]: https://img.shields.io/npm/v/@dck/rescript-promise
 [travis]: https://travis-ci.org/aantron/promise/branches
 [travis-img]: https://img.shields.io/travis/aantron/promise/master.svg?label=travis
 [coveralls]: https://coveralls.io/github/aantron/promise?branch=master
@@ -22,10 +22,10 @@ Promise.resolved("Hello")
 As you can see on the first line, `Promise.t` maps directly to familiar JS
 promises from your JS runtime. That means...
 
-- You can use `reason-promise` directly to [write JS bindings](#Bindings).
-- All JS tooling for promises immediately works with `reason-promise`.
+- You can use `@dck/rescript-promise` directly to [write JS bindings](#Bindings).
+- All JS tooling for promises immediately works with `@dck/rescript-promise`.
 - Even if you do something exotic, like switch out the promise implementation at
-  the JS level, for, say, better stack traces, `reason-promise` still binds to
+  the JS level, for, say, better stack traces, `@dck/rescript-promise` still binds to
   it!
 
 <br/>
@@ -33,7 +33,7 @@ promises from your JS runtime. That means...
 There is only one exception to the rule that `Promise.t` maps directly to JS
 promises: when there is a promise nested inside another promise. JS [breaks the
 type safety](#JSPromiseFlattening) of promises in a misguided attempt to
-disallow nesting. [`reason-promise` instead emulates it in a way that makes
+disallow nesting. [`@dck/rescript-promise` instead emulates it in a way that makes
 promises type-safe again](#TypeSafety). This is in contrast to BuckleScript's
 built-in `Js.Promise`, which directly exposes the JS behavior, and so is not
 type-safe.
@@ -42,10 +42,10 @@ type-safe.
 
 In addition:
 
-- `reason-promise` offers a clean functional API, which replaces rejection with
+- `rescript-promise` offers a clean functional API, which replaces rejection with
   [helpers for `Result` and `Option`](#Errors).
-- `reason-promise` is tiny. It weighs in at about [1K bundled][bundle-size].
-- `reason-promise` also has a full, standalone [pure-OCaml
+- `rescript-promise` is tiny. It weighs in at about [1K bundled][bundle-size].
+- `rescript-promise` also has a full, standalone [pure-OCaml
   implementation][native], which passes all the same tests. It can be used for
   native code or in JS.
 
@@ -67,7 +67,7 @@ In addition:
 - [**Advanced: Rejection**](#Rejection)
 - [**Advanced: Bindings**](#Bindings)
 - [**Discussion: Why JS promises are unsafe**](#JSPromiseFlattening)
-- [**Discussion: How `reason-promise` makes promises type-safe**](#TypeSafety)
+- [**Discussion: How `rescript-promise` makes promises type-safe**](#TypeSafety)
 
 <br/>
 
@@ -76,14 +76,14 @@ In addition:
 ### Installing
 
 ```
-npm install reason-promise
+npm install @dck/rescript-promise
 ```
 
-Then, add `reason-promise` to your `bsconfig.json`:
+Then, add `@dck/rescript-promise` to your `rescript.json`:
 
 ```json
 {
-  "bs-dependencies": ["reason-promise"]
+  "bs-dependencies": ["@dck/rescript-promise"]
 }
 ```
 
@@ -581,7 +581,7 @@ directly, safely be used from ReScript.
 
 <a id="TypeSafety"></a>
 
-### Discussion: How `reason-promise` makes promises type-safe
+### Discussion: How `@dck/rescript-promise` makes promises type-safe
 
 The [previous section](#JSPromiseFlattening) shows that JS promise functions are
 broken. An important observation is that it is only the _functions_ that are
@@ -591,14 +591,14 @@ safe replacement functions to use with it in ReScript. This is good news
 for interop :)
 
 To fix the functions, only the [special-case flattening](#JSPromiseFlattening)
-has to be undone. So, when you call `reason-promise`'s
+has to be undone. So, when you call `@dck/rescript-promise`'s
 [`Promise.resolved(value)`][resolved], it checks whether `value` is a promise
 or not, and...
 
-- If `value` _is not_ a promise, `reason-promise` just passes it to JS's
+- If `value` _is not_ a promise, `@dck/rescript-promise` just passes it to JS's
   [`Promise.resolve`][Promise.resolve], because JS will do the right thing.
 - If `value` _is_ a promise, it's not safe to simply pass it to JS, because it
-  will trigger the special-casing. So, `reason-promise` boxes the nested
+  will trigger the special-casing. So, `@dck/rescript-promise` boxes the nested
   promise:
 
   ```rescript
@@ -612,17 +612,17 @@ or not, and...
   enough to suppress the special-casing.
 
   Whenever you try to take the value out of this resulting structure (for
-  example, by calling [`Promise.get`][get] on it), `reason-promise`
+  example, by calling [`Promise.get`][get] on it), `@dck/rescript-promise`
   transparently unboxes the `PromiseBox` and passes the nested promise to your
   callback &mdash; as your callback would expect.
 
-This conditional boxing and unboxing is done throughout `reason-promise`. It
+This conditional boxing and unboxing is done throughout `@dck/rescript-promise`. It
 only happens for nested promises, and anything else with a `.then` method. For
-all other values, `reason-promise` behaves, internally, exactly like JS
+all other values, `@dck/rescript-promise` behaves, internally, exactly like JS
 `Promise` (though with a cleaner outer API). This is enough to make promises
 type-safe.
 
-This is a simple scheme, but `reason-promise` includes a very thorough
+This is a simple scheme, but `@dck/rescript-promise` includes a very thorough
 [test suite][tests] to be extra sure that it always manages the boxing
 correctly.
 
