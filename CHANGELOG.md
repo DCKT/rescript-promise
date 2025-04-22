@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/DCKT/rescript-promise/compare/v1.2.1...v1.2.2) (2025-04-22)
+
+
+### Bug Fixes
+
+* fix rescript name ([e1ffd17](https://github.com/DCKT/rescript-promise/commit/e1ffd17fe44a59da1e6dca9767167576e09b4b76))
+
 ## [1.2.1](https://github.com/DCKT/rescript-promise/compare/v1.2.0...v1.2.1) (2025-04-22)
 
 
