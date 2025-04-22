@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/DCKT/rescript-promise/compare/v1.2.0...v1.2.1) (2025-04-22)
+
+
+### Bug Fixes
+
+* add namespace as it clashes with rescript 12 Promise module ([145d197](https://github.com/DCKT/rescript-promise/commit/145d19737d2b7270c37a5d3454a096731f3fe410))
+
 # [1.2.0](https://github.com/DCKT/rescript-promise/compare/v1.1.0...v1.2.0) (2025-04-22)
 
 
