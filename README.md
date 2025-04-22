@@ -81,6 +81,8 @@ npm install @dck/rescript-promise
 
 Then, add `@dck/rescript-promise` to your `rescript.json`:
 
+NOTE: For ReScript < 12 use 1.1.0
+
 ```json
 {
   "bs-dependencies": ["@dck/rescript-promise"]

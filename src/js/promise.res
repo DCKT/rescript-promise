@@ -5,7 +5,7 @@ type promise<+'a> = rejectable<'a, never>
 type t<+'a> = promise<'a>
 
 let onUnhandledException = ref(exn => {
-  prerr_endline("Unhandled exception in promise callback:")
+  Js.Console.log("Unhandled exception in promise callback:")
   Js.Console.error(exn)
 })
 
@@ -133,7 +133,7 @@ module Js_ = {
 
   let race = promises =>
     if promises == list{} {
-      raise(Invalid_argument("Promise.race([]) would be pending forever"))
+      throw(Invalid_argument("Promise.race([]) would be pending forever"))
     } else {
       jsRace(Belt.List.toArray(promises))
     }
@@ -265,7 +265,7 @@ let allOkArray = promises => {
             switch result {
             | Ok(v) =>
               resultValues->Belt.Array.setExn(index, Some(v))
-              incr(resultCount)
+              Int.Ref.increment(resultCount)
               if resultCount.contents >= promiseCount {
                 (values => resolve(Ok(values)))(
                   resultValues->Belt.Array.map(
