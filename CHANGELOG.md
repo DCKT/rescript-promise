@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/DCKT/rescript-promise/compare/v1.1.0...v1.2.0) (2025-04-22)
+
+
+### Features
+
+* upgrade rescript version ([fc04788](https://github.com/DCKT/rescript-promise/commit/fc0478801b96f3ca8d4581a20201d97695688b98))
+
 # [1.1.0](https://github.com/DCKT/rescript-promise/compare/v1.0.3...v1.1.0) (2024-01-19)
 
 
