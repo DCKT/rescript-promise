@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/DCKT/rescript-promise/compare/v1.2.2...v1.2.3) (2025-04-23)
+
+
+### Bug Fixes
+
+* update namespace ([b4417b2](https://github.com/DCKT/rescript-promise/commit/b4417b239e04a664f54700475b0eb88cd3b547ab))
+
 ## [1.2.2](https://github.com/DCKT/rescript-promise/compare/v1.2.1...v1.2.2) (2025-04-22)
 
 
