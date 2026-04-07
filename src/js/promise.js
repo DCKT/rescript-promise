@@ -202,7 +202,7 @@ function exec(executor) {
 }
 
 function resolved$1(prim) {
-  return resolved(prim);
+  return globalThis.resolved(prim);
 }
 
 function flatMap(prim0, prim1) {
