@@ -1,6 +1,6 @@
 ⚠️ This is a fork of the [excellent work](https://github.com/aantron/promise) of [@aantron](https://github.com/aantron) updated for the latest version of ReScript
 
-# Promise &nbsp;&nbsp;&nbsp; [![NPM link][npm-img]][npm] [![Travis status][travis-img]][travis] [![Coverage][coveralls-img]][coveralls]
+# Future &nbsp;&nbsp;&nbsp; [![NPM link][npm-img]][npm] [![Travis status][travis-img]][travis] [![Coverage][coveralls-img]][coveralls]
 
 [npm]: https://www.npmjs.com/package/@dck/rescript-promise
 [npm-img]: https://img.shields.io/npm/v/@dck/rescript-promise
