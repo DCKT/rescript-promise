@@ -25,8 +25,8 @@
     "clean": "rescript clean"
   },
   "files": [
-    "src/js/promise.resi",
-    "src/js/promise.res",
+    "src/Future.resi",
+    "src/Future.res",
     "rescript.json"
   ]
 }
