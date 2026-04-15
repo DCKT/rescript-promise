@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/DCKT/rescript-promise/compare/v2.0.0...v2.0.1) (2026-04-15)
+
+
+### Bug Fixes
+
+* fix npm files config ([a1e6f17](https://github.com/DCKT/rescript-promise/commit/a1e6f174698bf96835358a3c1dff63171dbeae70))
+
 # [2.0.0](https://github.com/DCKT/rescript-promise/compare/v1.2.3...v2.0.0) (2026-04-15)
 
 
