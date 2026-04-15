@@ -20,3 +20,4 @@ test/bundle/*.js.gz
 promise-*
 _release
 src/*.js
+test/*.js

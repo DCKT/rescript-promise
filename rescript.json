@@ -1,5 +1,15 @@
 {
   "name": "@dck/rescript-promise",
   "namespace": false,
-  "sources": ["src"]
+  "sources": [
+    "src",
+    {
+      "dir": "test",
+      "type": "dev"
+    }
+  ],
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  }
 }

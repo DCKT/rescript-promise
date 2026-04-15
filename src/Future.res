@@ -37,7 +37,7 @@ function make(executor) {
     });
 };
 
-function resolved(value) {
+function js_resolved(value) {
     return Promise.resolve(box(value));
 };
 
@@ -87,7 +87,7 @@ module Js_ = {
   }
 
   @val
-  external resolved: 'a => rejectable<'a, _> = "resolved"
+  external resolved: 'a => rejectable<'a, _> = "js_resolved"
 
   @val
   external flatMap: (rejectable<'a, 'e>, 'a => rejectable<'b, 'e>) => rejectable<'b, 'e> = "then"

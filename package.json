@@ -22,7 +22,8 @@
   "scripts": {
     "build": "rescript build",
     "dev": "rescript watch",
-    "clean": "rescript clean"
+    "clean": "rescript clean",
+    "test": "npm run build && node lib/bs/test/Future_test.js && node test/Future_test.js"
   },
   "files": [
     "src/Future.resi",
