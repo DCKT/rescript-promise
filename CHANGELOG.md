@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/DCKT/rescript-promise/compare/v2.0.1...v2.0.2) (2026-04-15)
+
+
+### Bug Fixes
+
+* fix type shadowing ([e01ddc4](https://github.com/DCKT/rescript-promise/commit/e01ddc4568c568f013e71f3a8e54fda697ecd5ca))
+
 ## [2.0.1](https://github.com/DCKT/rescript-promise/compare/v2.0.0...v2.0.1) (2026-04-15)
 
 
