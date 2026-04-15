@@ -168,13 +168,9 @@ module Js: {
 
   let fromResult: promise<result<'a, 'e>> => rejectable<'a, 'e>
 
-  let fromBsPromise: Js.Promise.t<'a> => rejectable<'a, Js.Promise.error>
+  let fromBsPromise: promise<'a> => rejectable<'a, exn>
 
-  let toBsPromise: rejectable<'a, _> => Js.Promise.t<'a>
-}
-
-module PipeFirst: {
-
+  let toBsPromise: rejectable<'a, _> => promise<'a>
 }
 
 let onUnhandledException: ref<exn => unit>

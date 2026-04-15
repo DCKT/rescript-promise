@@ -5,8 +5,8 @@ type promise<+'a> = rejectable<'a, never>
 type t<+'a> = promise<'a>
 
 let onUnhandledException = ref(exn => {
-  Js.Console.log("Unhandled exception in promise callback:")
-  Js.Console.error(exn)
+  Console.log("Unhandled exception in promise callback:")
+  Console.error(exn)
 })
 
 %%raw(`
@@ -148,9 +148,9 @@ module Js_ = {
       }
     )
 
-  external fromBsPromise: Js.Promise.t<'a> => rejectable<'a, Js.Promise.error> = "%identity"
+  external fromBsPromise: promise<'a> => rejectable<'a, exn> = "%identity"
 
-  external toBsPromise: rejectable<'a, _> => Js.Promise.t<'a> = "%identity"
+  external toBsPromise: rejectable<'a, _> => promise<'a> = "%identity"
 }
 
 let pending = () => {
@@ -336,7 +336,5 @@ let tapSome = (promise, callback) => {
   getSome(promise, callback)
   promise
 }
-
-module PipeFirst = {}
 
 module Js = Js_
