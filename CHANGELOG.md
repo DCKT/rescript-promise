@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/DCKT/rescript-promise/compare/v2.0.2...v2.0.3) (2026-04-15)
+
+
+### Bug Fixes
+
+* fix globalThis issue + add tests ([92d991f](https://github.com/DCKT/rescript-promise/commit/92d991f00354d2cea8ef185953dc1b8fc741daf8))
+
 ## [2.0.2](https://github.com/DCKT/rescript-promise/compare/v2.0.1...v2.0.2) (2026-04-15)
 
 
