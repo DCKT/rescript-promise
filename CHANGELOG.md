@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/DCKT/rescript-promise/compare/v1.2.3...v2.0.0) (2026-04-15)
+
+
+### Features
+
+* use Future name to avoid name clash ([3888a08](https://github.com/DCKT/rescript-promise/commit/3888a08191bf9a9afe827bf17af0aefbac3b125a))
+
+
+### BREAKING CHANGES
+
+* rename top level module name
+
 ### BREAKING CHANGES
 
 - rename top level module name
