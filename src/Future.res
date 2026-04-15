@@ -148,9 +148,9 @@ module Js_ = {
       }
     )
 
-  external fromBsPromise: promise<'a> => rejectable<'a, exn> = "%identity"
+  external fromBsPromise: Stdlib_Promise.t<'a> => rejectable<'a, exn> = "%identity"
 
-  external toBsPromise: rejectable<'a, _> => promise<'a> = "%identity"
+  external toBsPromise: rejectable<'a, _> => Stdlib_Promise.t<'a> = "%identity"
 }
 
 let pending = () => {

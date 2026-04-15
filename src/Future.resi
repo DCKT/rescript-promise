@@ -168,9 +168,9 @@ module Js: {
 
   let fromResult: promise<result<'a, 'e>> => rejectable<'a, 'e>
 
-  let fromBsPromise: promise<'a> => rejectable<'a, exn>
+  let fromBsPromise: Stdlib_Promise.t<'a> => rejectable<'a, exn>
 
-  let toBsPromise: rejectable<'a, _> => promise<'a>
+  let toBsPromise: rejectable<'a, _> => Stdlib_Promise.t<'a>
 }
 
 let onUnhandledException: ref<exn => unit>
