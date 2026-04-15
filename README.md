@@ -12,14 +12,14 @@
 A lightweight, type-safe binding to JS promises:
 
 ```rescript
-Js.log(Promise.resolved("Hello"));  /* Promise { 'Hello' } */
+Js.log(Future.resolved("Hello"));  /* Promise { 'Hello' } */
 
-Promise.resolved("Hello")
-->Promise.map(s => s ++ " world!")
-->Promise.get(s => Js.log(s));      /* Hello world! */
+Future.resolved("Hello")
+->Future.map(s => s ++ " world!")
+->Future.get(s => Js.log(s));      /* Hello world! */
 ```
 
-As you can see on the first line, `Promise.t` maps directly to familiar JS
+As you can see on the first line, `Future.t` maps directly to familiar JS
 promises from your JS runtime. That means...
 
 - You can use `@dck/rescript-promise` directly to [write JS bindings](#Bindings).
@@ -30,7 +30,7 @@ promises from your JS runtime. That means...
 
 <br/>
 
-There is only one exception to the rule that `Promise.t` maps directly to JS
+There is only one exception to the rule that `Future.t` maps directly to JS
 promises: when there is a promise nested inside another promise. JS [breaks the
 type safety](#JSPromiseFlattening) of promises in a misguided attempt to
 disallow nesting. [`@dck/rescript-promise` instead emulates it in a way that makes
@@ -119,35 +119,35 @@ of what each function does and what it expects from its callback.
 ### Creating new promises
 
 The most basic function for creating a new promise is
-[`Promise.pending`][pending]:
+[`Future.pending`][pending]:
 
 ```rescript
-let (p, resolve) = Promise.pending()
+let (p, resolve) = Future.pending()
 Js.log(p)     /* Promise { <pending> } */
 ```
 
 The second value returned, `resolve`, is a function for resolving the promise:
 
 ```rescript
-let (p, resolve) = Promise.pending()
+let (p, resolve) = Future.pending()
 resolve("Hello")
 Js.log(p)     /* Promise { 'Hello' } */
 ```
 
-[`Promise.resolved`][resolved] is a helper that returns an already-resolved
+[`Future.resolved`][resolved] is a helper that returns an already-resolved
 promise:
 
 ```rescript
-let p = Promise.resolved("Hello")
+let p = Future.resolved("Hello")
 Js.log(p)     /* Promise { 'Hello' } */
 ```
 
-...and [`Promise.exec`][exec] is for wrapping functions that take callbacks:
+...and [`Future.exec`][exec] is for wrapping functions that take callbacks:
 
 ```rescript
 @bs.val external setTimeout: (unit => unit, int) => unit = "setTimeout"
 
-let p = Promise.exec(resolve => setTimeout(resolve, 1000))
+let p = Future.exec(resolve => setTimeout(resolve, 1000))
 Js.log(p)     /* Promise { <pending> } */
 
 /* Program then waits for one second before exiting. */
@@ -159,12 +159,12 @@ Js.log(p)     /* Promise { <pending> } */
 
 ### Getting values from promises
 
-To do something once a promise is resolved, use [`Promise.get`][get]:
+To do something once a promise is resolved, use [`Future.get`][get]:
 
 ```rescript
-let (p, resolve) = Promise.pending()
+let (p, resolve) = Future.pending()
 
-p->Promise.get(s => Js.log(s))
+p->Future.get(s => Js.log(s))
 
 resolve("Hello")    /* Prints "Hello". */
 ```
@@ -175,22 +175,22 @@ resolve("Hello")    /* Prints "Hello". */
 
 ### Transforming promises
 
-Use [`Promise.map`][map] to transform the value inside a promise:
+Use [`Future.map`][map] to transform the value inside a promise:
 
 ```rescript
-let (p, resolve) = Promise.pending()
+let (p, resolve) = Future.pending()
 
 p
-->Promise.map(s => s ++ " world")
-->Promise.get(s => Js.log(s))
+->Future.map(s => s ++ " world")
+->Future.get(s => Js.log(s))
 
 resolve("Hello")    /* Hello world */
 ```
 
-To be precise, `Promise.map` creates a _new_ promise with the transformed value.
+To be precise, `Future.map` creates a _new_ promise with the transformed value.
 
 If the function you are using to transform the value also returns a promise,
-use [`Promise.flatMap`][flatMap] instead of `Promise.map`. `Promise.flatMap`
+use [`Future.flatMap`][flatMap] instead of `Future.map`. `Future.flatMap`
 will flatten the nested promise.
 
 <br/>
@@ -203,13 +203,13 @@ If you have a chain of promise operations, and you'd like to inspect the value
 in the middle of the chain, use [`Promise.tap`][tap]:
 
 ```rescript
-let (p, resolve) = Promise.pending()
+let (p, resolve) = Future.pending()
 
 p
-->Promise.tap(s => Js.log("Value is now: " ++ s))
-->Promise.map(s => s ++ " world")
-->Promise.tap(s => Js.log("Value is now: " ++ s))
-->Promise.get(s => Js.log(s))
+->Future.tap(s => Js.log("Value is now: " ++ s))
+->Future.map(s => s ++ " world")
+->Future.tap(s => Js.log("Value is now: " ++ s))
+->Future.get(s => Js.log(s))
 
 resolve("Hello")
 
@@ -226,16 +226,16 @@ Hello world
 
 ### Concurrent combinations
 
-[`Promise.race`][race] waits for _one_ of the promises passed to it to resolve:
+[`Future.race`][race] waits for _one_ of the promises passed to it to resolve:
 
 ```rescript
 @bs.val external setTimeout: (unit => unit, int) => unit = "setTimeout"
 
-let one_second = Promise.exec(resolve => setTimeout(resolve, 1000))
-let five_seconds = Promise.exec(resolve => setTimeout(resolve, 5000))
+let one_second = Future.exec(resolve => setTimeout(resolve, 1000))
+let five_seconds = Future.exec(resolve => setTimeout(resolve, 5000))
 
-Promise.race([one_second, five_seconds])
-->Promise.get(() => {
+Future.race([one_second, five_seconds])
+->Future.get(() => {
   Js.log("Hello")
   exit(0)
 })
@@ -243,17 +243,17 @@ Promise.race([one_second, five_seconds])
 /* Prints "Hello" after one second. */
 ```
 
-[`Promise.all`][all] instead waits for _all_ of the promises passed to it,
+[`Future.all`][all] instead waits for _all_ of the promises passed to it,
 concurrently:
 
 ```rescript
 @bs.val external setTimeout: (unit => unit, int) => unit = "setTimeout"
 
-let one_second = Promise.exec(resolve => setTimeout(resolve, 1000))
-let five_seconds = Promise.exec(resolve => setTimeout(resolve, 5000))
+let one_second = Future.exec(resolve => setTimeout(resolve, 1000))
+let five_seconds = Future.exec(resolve => setTimeout(resolve, 5000))
 
-Promise.all([one_second, five_seconds])
-->Promise.get(_ => {
+Future.all([one_second, five_seconds])
+->Future.get(_ => {
   Js.log("Hello")
   exit(0)
 })
@@ -261,14 +261,14 @@ Promise.all([one_second, five_seconds])
 /* Prints "Hello" after five seconds. */
 ```
 
-For convenience, there are several variants of `Promise.all`:
+For convenience, there are several variants of `Future.all`:
 
-- [`Promise.all2`][all2]
-- [`Promise.all3`][all3]
-- [`Promise.all4`][all4]
-- [`Promise.all5`][all5]
-- [`Promise.all6`][all6]
-- [`Promise.allArray`][allArray]
+- [`Future.all2`][all2]
+- [`Future.all3`][all3]
+- [`Future.all4`][all4]
+- [`Future.all5`][all5]
+- [`Future.all6`][all6]
+- [`Future.allArray`][allArray]
 
 <br/>
 
@@ -282,8 +282,8 @@ Promises that can fail are represented using the standard library's
 ```rescript
 open Belt.Result
 
-Promise.resolved(Ok("Hello"))
-->Promise.getOk(s => Js.log(s))       /* Hello */
+Future.resolved(Ok("Hello"))
+->Future.getOk(s => Js.log(s))       /* Hello */
 ```
 
 [`Promise.getOk`][getOk] waits for `p` to have a value, and runs its function
